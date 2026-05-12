@@ -1,0 +1,42 @@
+# Checking for Basis 
+clc; clear; 
+% Given vectors (columns) 
+v1 = [1; 2; 3]; 
+v2 = [1; 0; 1]; 
+v3 = [0; 1; 1]; 
+% Form matrix 
+A = [v1 v2 v3]; 
+disp('Matrix A:'); 
+disp(A) 
+% Rank of matrix 
+r = rank(A); 
+% Number of vectors 
+numVec = size(A,2); 
+% Dimension of ambient space 
+dimSpace = size(A,1); 
+fprintf('Rank = %d\n', r); 
+fprintf('Number of vectors = %d\n', numVec); 
+fprintf('Dimension of space = %d\n', dimSpace); 
+% Basis check 
+if (r == numVec) && (r == dimSpace) 
+ disp('The given set of vectors FORMS A BASIS.'); 
+else 
+ disp('The given set of vectors DOES NOT form a basis.'); 
+end 
+# Basis and dimension 
+clc; clear; 
+v1 = [1; 2; 3]; 
+v2 = [2; 4; 6]; 
+v3 = [1; 0; 1]; 
+A = [v1 v2 v3]; 
+disp('Matrix A:'); 
+disp(A) 
+dim = rank(A); 
+disp('Dimension of the span:'); 
+disp(dim) 
+[R, pivot] = rref(A); 
+disp('Pivot columns:'); 
+disp(pivot) 
+basis = A(:, pivot); 
+disp('Basis vectors:'); 
+disp(basis)
