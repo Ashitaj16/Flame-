@@ -1,0 +1,64 @@
+% 1. RANGE AND KERNEL 
+clc; clear; 
+syms x y z real 
+% Define equations for kernel 
+eq1 = x - y == 0; 
+eq2 = y - z == 0; 
+eq3 = z - x == 0; 
+% Solve symbolically (parametric) 
+S = solve([eq1, eq2, eq3], [x, y, z], 'ReturnConditions', true); 
+disp('Kernel solution structure:'); 
+disp(S) 
+% Extract parametric form 
+kernel_vec = [S.x; S.y; S.z]; 
+disp('Kernel vector (parametric):'); 
+disp(kernel_vec) 
+num_params = length(S.parameters); 
+fprintf('Nullity(T) = %d\n', num_params); 
+syms x y z u1 u2 u3 real 
+eq1 = x - y - u1; 
+eq2 = y - z - u2; 
+eq3 = z - x - u3; 
+range_condition = eliminate([eq1, eq2, eq3], [x, y, z]); 
+disp('Range(T) is the set of (u1,u2,u3) satisfying:'); 
+disp(range_condition) 
+% --- 2. GIVEN MATRIX (TRANSFORMATION) --- 
+A = [2 1 3; 
+ 4 2 6; 
+ 1 0 1]; % <-- Replace with your matrix 
+%% ----- RANGE (COLUMN SPACE) ----- 
+disp('RANGE (COLUMN SPACE)'); 
+% Basis for the column space 
+[~, pivots] = rref(A); 
+range_basis = A(:, pivots); 
+disp('Basis for the Range (Column Space):'); 
+disp(range_basis); 
+disp(['Dimension of Range = ', num2str(length(pivots))]); 
+%% ----- KERNEL (NULL SPACE) ----- 
+disp('KERNEL (NULL SPACE)'); 
+kernel_basis = null(A, 'r'); % 'r' gives rational basis if possible 
+disp('Basis for the Kernel (Null Space):'); 
+disp(kernel_basis); 
+disp(['Dimension of Kernel = ', num2str(size(kernel_basis, 2))]); 
+# 3. Checking Rank-Nullity theorem 
+% ----- GIVEN MATRIX ----- 
+A = [2 1 3; 
+ 4 2 6; 
+ 1 0 1]; % <-- Replace with your matrix 
+%% ----- COMPUTE RANK ----- 
+r = rank(A); 
+disp(['Rank(A) = ', num2str(r)]); 
+%% ----- COMPUTE NULLITY ----- 
+% nullity = dimension of kernel = number of free variables 
+N = null(A, 'r'); % rational basis for null space 
+nullity = size(N, 2); 
+disp(['Nullity(A) = ', num2str(nullity)]); 
+%% ----- CHECK RANK-NULLITY THEOREM ----- 
+n = size(A, 2); % number of columns of A 
+disp(['Rank(A) + Nullity(A) = ', num2str(r + nullity)]); 
+disp(['Number of columns (n) = ', num2str(n)]); 
+if r + nullity == n 
+ disp('Rank-Nullity Theorem is VERIFIED: Rank(A) + Nullity(A) = n'); 
+else 
+ disp('Rank-Nullity Theorem is NOT satisfied for this matrix.'); 
+end
