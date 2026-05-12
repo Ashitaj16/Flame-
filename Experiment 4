@@ -1,0 +1,51 @@
+#Linear mapping 
+clc; clear; 
+% Define the transformation T as an anonymous function 
+T = @(x) [x(1) + 1; x(2)]; 
+% Choose test vectors 
+u = [1; 2]; 
+v = [3; 4]; 
+c = 5; 
+% Check additivity 
+left1 = T(u + v); 
+right1 = T(u) + T(v); 
+% Check homogeneity 
+left2 = T(c * u); 
+right2 = c * T(u); 
+disp('Check additivity: T(u+v) vs T(u)+T(v)'); 
+disp([left1 right1]) 
+disp('Check homogeneity: T(cu) vs cT(u)'); 
+disp([left2 right2]) 
+% Logical checks 
+if isequal(left1, right1) && isequal(left2, right2)
+ disp('The map T is LINEAR.'); 
+else 
+ disp('The map T is NOT LINEAR.'); 
+end 
+#Matrix associated 
+clc; clear; 
+% Define the transformation T 
+T = @(x) [2*x(1) - 3*x(2); 
+ -x(1) + x(2)]; 
+% Standard basis vectors 
+e1 = [1; 0]; 
+e2 = [0; 1]; 
+% Apply T to basis vectors 
+Te1 = T(e1); 
+Te2 = T(e2); 
+% Form the transformation matrix 
+A = [Te1 Te2]; 
+disp('Matrix associated with T w.r.t. standard basis:'); 
+disp(A) 
+# Composition of two linear maps 
+% ----- Linear map T1: R^n → R^m ----- 
+A = [1 2; 
+ 3 4; 
+ 5 6]; % Example: 3×2 matrix 
+% ----- Linear map T2: R^m → R^p ----- 
+B = [2 1 0; 
+ 0 1 1]; % Example: 2×3 matrix 
+% ----- Composition T2 ∘ T1 ----- 
+C = B * A; 
+disp('Matrix of the composition T2 ∘ T1 is:'); 
+disp(C);
