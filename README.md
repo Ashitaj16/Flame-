@@ -11,5 +11,5 @@ n = size(A,2);
 if r == n 
  disp('Vectors are LINEARLY INDEPENDENT'); 
 else 
- disp('Vectors are LINEARLY DEPENDENT'); 
-e
+disp('Vectors are LINEARLY DEPENDENT'); 
+end
