@@ -1,0 +1,22 @@
+clc; clear; 
+syms k lamda 
+A = [-2 2 -3; 
+ 2 1 -6; 
+ -1 -2 0]; 
+eigVals = eig(A); 
+disp('Eigenvalues:'); 
+disp(eigVals) 
+[V, D] = eig(A); 
+disp('Eigenvector matrix V (columns are eigenvectors):'); 
+disp(V) 
+disp(D) 
+eigValsR = round(eigVals, 6); 
+uniqueVals = unique(eigValsR); 
+disp('Algebraic & Geometric Multiplicity:'); 
+for i = 1:length(uniqueVals) 
+ lambda = uniqueVals(i); 
+ alg = sum(eigValsR == lambda); 
+ geo = size(null(A - lambda*eye(size(A))), 2); 
+ fprintf('lambda = %.4f , algebraic multiplicity = %d\n, geometric multiplicity = %d\n', 
+lambda, alg, geo); 
+end
