@@ -1,0 +1,38 @@
+clc; 
+clear; 
+syms x y 
+% Define M and N 
+M = 2*x*y + y^2; 
+N = x^2 + 2*x*y; 
+% Step 1: Check exactness
+dMdy = diff(M,y); 
+dNdx = diff(N,x); 
+disp('dM/dy = ') 
+disp(dMdy) 
+disp('dN/dx = ') 
+disp(dNdx) 
+if simplify(dMdy - dNdx) == 0 
+ disp('The equation is EXACT') 
+else 
+ disp('The equation is NOT exact') 
+end 
+# If not exact,find an integrating factor 
+expr = simplify((dMdy - dNdx)/N); 
+disp('Expression for Integrating Factor (if function of x only):'); 
+pretty(expr) 
+mu = exp(int(expr,x)); % integrating factor 
+mu = simplify(mu) 
+% Multiply equation by integrating factor 
+M1 = simplify(mu*M); 
+N1 = simplify(mu*N); 
+% Verify new equation is exact 
+if simplify(diff(M1, y) - diff(N1,x)) == 0 
+ disp('Transformed equation is Exact'); 
+end 
+% Final Solution is 
+Cx = int(M1,x); 
+Cy = diff(Cx,y); 
+g = int(N1 - Cy, y); 
+C = simplify(Cx + g); 
+disp('General Solution:') 
+disp(C)
