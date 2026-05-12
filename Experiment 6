@@ -1,0 +1,23 @@
+clc; clear; 
+syms k 
+A = [-2 2 -3; 
+ 2 1 -6; 
+ -1 -2 0]; 
+I = eye(size(A)); 
+% Characteristic polynomial 
+charPoly = expand(det(A - k*I)); 
+disp('Characteristic polynomial:'); 
+disp(charPoly) 
+disp('Characteristic Equation:'); 
+charEq = charPoly == 0; 
+disp(charEq) 
+% Solve characteristic equation 
+eigVals = solve(charPoly == 0, k); 
+disp('Eigenvalues:'); 
+disp(eigVals) 
+evals=eig(A); 
+disp('Eigenvalues:'); 
+disp(evals) 
+[V, D]= eig(A);
+disp('Eigenvector matrix V(columns are eigenvectors):');
+disp(V)
